@@ -16,12 +16,12 @@ function App() {
         <Route index element={ <Home /> } />
         <Route path={'/home'} element={ <Home /> } />
         <Route path={'/'} element={ <Home /> } />
-        <Route path='/contact' element={ <Contact /> } />
-        <Route path='/about' element={ <About /> } />
-        <Route path='/login' element={ <Login /> } />
-        <Route path='/dashboard' element={ <Dashboard /> } />
-        <Route path='/register' element={ <Signup /> } />
-        <Route path='/employees' element={ <Employees /> } />
+        <Route path={'/contact'} element={ <Contact /> } />
+        <Route path={'/about'} element={ <About /> } />
+        <Route path={'/login'} element={ <Login /> } />
+        <Route path={'/dashboard'} element={ <Dashboard /> } />
+        <Route path={'/register'} element={ <Signup /> } />
+        <Route path={'/employees'} element={ <Employees /> } />
       </Routes>
     </BrowserRouter>
   );
