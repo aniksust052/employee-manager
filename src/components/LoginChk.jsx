@@ -1,57 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import LoginForm from './LoginForm';
-import $ from 'jquery';
 
 export default function LoginChk() {
 
     const [manager, setManager] = useState(true);
-
-    useEffect( () => {
-        $(document).on('click', '.manager', () => {
-            setManager(true);
-            $('.login-form').css(
-                {
-                    display: 'flex',
-                }
-            );
-            $('.manager').css(
-                {
-                    background: 'rgb(52, 73, 74)',
-                }
-            )
-            $('.employee').css(
-                {
-                    background: 'transparent',
-                }
-            )
-        });
-        $(document).on('click', '.employee', () => {
-            setManager(false);
-            $('.login-form').css(
-                {
-                    display: 'flex',
-                }
-            );
-            $('.employee').css(
-                {
-                    background: 'rgb(52, 73, 74)',
-                }
-            )
-            $('.manager').css(
-                {
-                    background: 'transparent',
-                }
-            )
-        });
-    }, [] );
+    const [lgin, setlgin] = useState(false);
+    const handleEmployee = () => {
+        setManager(false);
+        setlgin(true);
+    }
+    const handleManager = () => {
+        setManager(true);
+        setlgin(true);
+    }
 
     return (
         <>
             <div className='login-chk'>
-                <div className='employee'>Login as Employee</div>
-                <div className='manager' >Login as Manager</div>
+                <div className={`employee + ${lgin && !manager ? ' login-bg' : ''}`} onClick={handleEmployee}>Login as Employee</div>
+                <div className={`manager +  ${lgin && manager ? ' login-bg' : ''}`} onClick={handleManager} >Login as Manager</div>
             </div>
-            <LoginForm manager={manager} />
+            {
+                lgin && (
+                    <LoginForm manager={manager} />
+                )
+            }
+            
         </>
     );
 }

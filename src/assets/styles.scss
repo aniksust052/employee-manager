@@ -70,6 +70,9 @@ body {
         color: rgb(35, 242, 242);
         cursor: pointer;
     }
+    .login-bg {
+        background-color: rgb(52, 73, 74);
+    }
 }
 
 .employee-list-tble {
@@ -77,6 +80,7 @@ body {
     border: 1px solid #8a8a8a;
     margin: 50px auto;
     border-collapse: collapse;
+    max-width: 1200px;
     .actions {
         display: flex;
         gap: 10px;
@@ -85,6 +89,8 @@ body {
         padding: 10px 15px;
         border: 1px solid #8a8a8a;
         font-size: 20px;
+        overflow: auto;
+        max-width: 350px;
     }
     button {
         color: #1b1818;
@@ -94,12 +100,13 @@ body {
 }
 
 .employee-form-wrapper {
-    display: none;
+    display: flex;
     justify-content: center;
     margin: 20px 0px;
     td, th, button, input {
         padding: 5px 10px;
         font-size: 16px;
+        overflow: auto;
     }
     input {
         color: #ffffff;
@@ -122,9 +129,8 @@ body {
 
 .login-form {
     margin-top: 40px;
-    display: none;
+    display: flex;
     justify-content: center;
-    
     table {
         border-collapse: collapse;
         font-size: 20px;
