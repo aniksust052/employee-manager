@@ -29,6 +29,11 @@ body {
         padding: 5px 10px;
         border-radius: 5px;
     }
+    li .logout{
+        color: #ffffff;
+        background-color: transparent;
+        border: none;
+    }
 }
 
 .home {
@@ -86,9 +91,9 @@ body {
         gap: 10px;
     }
     td, th, button {
-        padding: 10px 15px;
+        padding: 10px 12px;
         border: 1px solid #8a8a8a;
-        font-size: 20px;
+        font-size: 18px;
         overflow: auto;
         max-width: 350px;
     }
@@ -131,6 +136,9 @@ body {
     margin-top: 40px;
     display: flex;
     justify-content: center;
+    .signup-title {
+        width: 100%;
+    }
     table {
         border-collapse: collapse;
         font-size: 20px;

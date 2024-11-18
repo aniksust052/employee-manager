@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Nav from '../components/Nav';
 import AddEmployeeForm from '../components/AddEmployeeForm';
+import ApiServices from '../services/apiServices';
 
 export default function Employees() {
     const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem("employees")) || []);
     const [showForm, setShowForm] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const token = localStorage.getItem("token");
 
     async function loadEmployees() {
         try {
-            const response = await fetch('https://employee-spring-boot-production.up.railway.app/api/employees');
-            const fetchEmployees = await response.json();
-            localStorage.setItem("employees", JSON.stringify(fetchEmployees));
-            setEmployees(fetchEmployees);
+            const response = await ApiServices.getAllEmployees(token);
+            console.log(response);
+            // localStorage.setItem("employees", JSON.stringify(fetchEmployees));
+            setEmployees(response);
         } catch (error) {
             console.error('Error fetching employees:', error);
         }
@@ -30,9 +32,7 @@ export default function Employees() {
     const deleteEmployee = (employee) => {
         async function deleteEmpl() {
             try {
-                await fetch(`https://employee-spring-boot-production.up.railway.app/api/employees/${employee.id}`, {
-                    method: 'DELETE',
-                });
+                const response = await ApiServices.deleteAnEmployee(token, employee.id);
                 loadEmployees();
             } catch (error) {
                 console.error('Error deleting employee:', error);
@@ -59,6 +59,7 @@ export default function Employees() {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Registration</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
@@ -72,6 +73,7 @@ export default function Employees() {
                     {employees.map((employee) => (
                         <tr key={employee.id}>
                             <td>{100000 + employee.id}</td>
+                            <td>{employee.registrationNumber}</td>
                             <td>{employee.firstName}</td>
                             <td>{employee.lastName}</td>
                             <td>{employee.email}</td>

@@ -1,4 +1,6 @@
 import React, { useRef, useEffect } from 'react';
+import ApiServices from '../services/apiServices';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddEmployeeForm({
     showForm,
@@ -8,12 +10,19 @@ export default function AddEmployeeForm({
     loadEmployees = () => { }
 }) {
     const formRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(formRef.current);
         const data = Object.fromEntries(formData.entries());
+        const manager = ApiServices.isManager();
+        const token = localStorage.getItem("token");
+        if(!manager){
+            navigate('/login');
+            return;
+        }
 
         const employee = {
             id: data.id || null,
@@ -32,17 +41,10 @@ export default function AddEmployeeForm({
 
         try {
             if (employee.id) {
-                await fetch(`https://employee-spring-boot-production.up.railway.app/api/employees/${employee.id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(employee),
-                });
+                const response = await ApiServices.updateAnEmployee(token, employee);
             } else {
-                await fetch('https://employee-spring-boot-production.up.railway.app/api/employees', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(employee),
-                });
+                const response = await ApiServices.addAnEmployee(token, employee);
+                navigate('/employees');
             }
 
             loadEmployees();

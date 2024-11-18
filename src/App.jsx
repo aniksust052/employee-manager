@@ -8,8 +8,13 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Signup from './pages/Signup';
 import Employees from './pages/Employees';
+import ApiServices from './services/apiServices';
+import Logout from './pages/Logout';
 
 function App() {
+    const manager = ApiServices.isManager();
+    const employee = ApiServices.isEmployee();
+    const authenticated = ApiServices.isAuthenticate();
   return (
     <BrowserRouter>
       <Routes>
@@ -18,10 +23,22 @@ function App() {
         <Route path={'/'} element={ <Home /> } />
         <Route path={'/contact'} element={ <Contact /> } />
         <Route path={'/about'} element={ <About /> } />
-        <Route path={'/login'} element={ <Login /> } />
-        <Route path={'/dashboard'} element={ <Dashboard /> } />
+        {
+            !authenticated && (
+                <Route path={'/login'} element={ <Login /> } />
+            )
+        }
+        <Route path={'/logout'} element={ <Logout /> } />
         <Route path={'/register'} element={ <Signup /> } />
-        <Route path={'/employees'} element={ <Employees /> } />
+        {
+            manager && (
+                <>
+                    <Route path={'/employees'} element={ <Employees manager={true} /> } />
+                    <Route path={'/dashboard'} element={ <Dashboard /> } />
+                </>
+            )
+        }
+        <Route path={'*'} element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
