@@ -4,7 +4,7 @@ import AddEmployeeForm from '../components/AddEmployeeForm';
 import ApiServices from '../services/apiServices';
 
 export default function Employees() {
-    const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem("employees")) || []);
+    const [employees, setEmployees] = useState( []);
     const [showForm, setShowForm] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const token = localStorage.getItem("token");

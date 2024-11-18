@@ -10,13 +10,16 @@ import Signup from './pages/Signup';
 import Employees from './pages/Employees';
 import ApiServices from './services/apiServices';
 import Logout from './pages/Logout';
+import { useState } from 'react';
 
 function App() {
-    const manager = ApiServices.isManager();
+    const [manager, setManager] = useState(ApiServices.isManager());
     const employee = ApiServices.isEmployee();
     const authenticated = ApiServices.isAuthenticate();
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{
+        v7_startTransition: true,
+    }}>
       <Routes>
         <Route index element={ <Home /> } />
         <Route path={'/'} element={ <Home /> } />
@@ -25,7 +28,14 @@ function App() {
         <Route path={'/about'} element={ <About /> } />
         {
             !authenticated && (
-                <Route path={'/login'} element={ <Login /> } />
+                <Route 
+                    path={'/login'} 
+                    element={ 
+                    <Login 
+                        manager={manager} 
+                        setManager={setManager} 
+                    /> } 
+                />
             )
         }
         <Route path={'/logout'} element={ <Logout /> } />

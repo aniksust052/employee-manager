@@ -35,7 +35,6 @@ class ApiServices {
     static logout () {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
-        localStorage.removeItem("employee");
     }
 
     static async addAnEmployee (token, employee) {

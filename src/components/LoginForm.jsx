@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { NavLink, useNavigate, Link } from 'react-router-dom';
 import ApiServices from "../services/apiServices";
 
-export default function LoginForm ( {manager} ) {
+export default function LoginForm ( {managerLogin, manager, setManager} ) {
     const [loginStatus, setLoginStatus] = useState("");
     const navigate = useNavigate();
     const formRef = useRef(null);
@@ -13,7 +13,7 @@ export default function LoginForm ( {manager} ) {
         const formData = new FormData(formRef.current);
         const newData = {
             email: formData.get("email"),
-            password: manager ? formData.get("password") : formData.get("reg"),
+            password: managerLogin ? formData.get("password") : formData.get("reg"),
         };
 
         if(!newData.email || !newData.password ){
@@ -30,7 +30,9 @@ export default function LoginForm ( {manager} ) {
            
             localStorage.setItem("token", loginResponse.token);
             localStorage.setItem("role", loginResponse.role);
-            setLoginStatus("");
+            setLoginStatus("Login Successfull");
+            setManager(true);
+            formRef.current.reset();
             navigate('/employees');
         } catch (err) {
             setLoginStatus("Bad Credential");
@@ -39,7 +41,7 @@ export default function LoginForm ( {manager} ) {
 
     return(
         <div className="login-form">
-            <form action="" id="login" ref={formRef}>
+            <form action="" id="login" ref={formRef} onSubmit={handleLogin}>
                 <table>
                     <tbody>
                         <tr>
@@ -52,18 +54,18 @@ export default function LoginForm ( {manager} ) {
                         </tr>
                         <tr>
                             <td>
-                                <label htmlFor={manager ? "password" : "reg"}>
-                                    {manager ? 'Password : ' : 'Registration Number :'}
+                                <label htmlFor={managerLogin ? "password" : "reg"}>
+                                    {managerLogin ? 'Password : ' : 'Registration Number :'}
                                 </label>
                             </td>
                             <td>
                                 {
-                                    manager && (
+                                    managerLogin && (
                                         <input type="password" id="password" name="password" placeholder="password" required />
                                     )
                                 }
                                 {
-                                    !manager && (
+                                    !managerLogin && (
                                         <input type="number" id="reg" name="reg" placeholder="reg. provided by manager"  required />
                                     )
                                 }
@@ -71,11 +73,15 @@ export default function LoginForm ( {manager} ) {
                         </tr>
                         <tr>
                             <td>
-                                <button type="submit" onClick={(e) => handleLogin(e)}>Login</button>
+                                <button 
+                                    type="submit" 
+                                >
+                                    Login
+                                </button>
                             </td>
                             <td>
                                 {
-                                    manager && (
+                                    managerLogin && (
                                         <NavLink className={'new-user'} to={'/register'} >New manager!!</NavLink>
                                     )
                                 }
@@ -83,11 +89,16 @@ export default function LoginForm ( {manager} ) {
                         </tr>
                         {
                             loginStatus && (
-                                <tr>
-                                    <td colSpan={'2'}>
-                                    {loginStatus}
-                                    </td>
-                                </tr>
+                                <>
+                                    <tr>
+                                        <td colSpan={'2'}>
+                                        {loginStatus}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><NavLink to={'/home'} className={'new-user'} colSpan={'2'} >Go Home Page</NavLink></td>
+                                    </tr>
+                                </>
                             )
                         }
                     </tbody>
