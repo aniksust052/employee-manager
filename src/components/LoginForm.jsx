@@ -20,7 +20,6 @@ export default function LoginForm ( {manager} ) {
             setLoginStatus("Email and password/registration are required.");
             return;
         }
-        console.log(newData);
         try{
             const loginResponse = await ApiServices.login(newData);
 
@@ -35,10 +34,8 @@ export default function LoginForm ( {manager} ) {
             navigate('/employees');
         } catch (err) {
             setLoginStatus("Bad Credential");
-            console.log("error login : ", err);
         }
     }
-    // loginStatus === '#'? navigate('/employees') : '';
 
     return(
         <div className="login-form">

@@ -70,8 +70,6 @@ export default function AddEmployeeForm({
         }
     }, [selectedEmployee]);
 
-    // if (!showForm) return null;
-
     return (
         <div className='employee-form-wrapper'>
             <form id="employee-form" ref={formRef} onSubmit={handleSubmit}>

@@ -8,7 +8,7 @@ class ApiServices {
         console.log(user);
         try{
             const response = await axios.post(
-                `${this.localUrl}/auth/register`,
+                `${this.deployedUrl}/auth/register`,
                 user
             );
 
@@ -22,7 +22,7 @@ class ApiServices {
         
         try{
             const response = await axios.post(
-                `${this.localUrl}/auth/login`,
+                `${this.deployedUrl}/auth/login`,
                 data
             );
 
@@ -41,7 +41,7 @@ class ApiServices {
     static async addAnEmployee (token, employee) {
         try {
             const response = await axios.post(
-                `${this.localUrl}/api/employees`,
+                `${this.deployedUrl}/api/employees`,
                 employee,
                 {
                     headers : {
@@ -59,7 +59,7 @@ class ApiServices {
     static async getAllEmployees (token) {
         try{
             const response = await axios.get(
-                `${this.localUrl}/api/employees`,
+                `${this.deployedUrl}/api/employees`,
                 {
                     headers : {
                         Authorization : `Bearer ${token}`,
@@ -76,7 +76,7 @@ class ApiServices {
     static async updateAnEmployee(token, employee) {
         try {
             const response = await axios.put(
-                `${this.localUrl}/api/employees/${employee.id}`,
+                `${this.deployedUrl}/api/employees/${employee.id}`,
                 employee,
                 {
                     headers : {
@@ -94,7 +94,7 @@ class ApiServices {
     static async deleteAnEmployee (token, id) {
         try {
             const response = await axios.delete(
-                `${this.localUrl}/api/employees/${id}`,
+                `${this.deployedUrl}/api/employees/${id}`,
                 {
                     headers : {
                         Authorization : `Bearer ${token}`,
