@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 import ApiServices from "../services/apiServices";
 
 export default function LoginForm ( {manager} ) {
@@ -32,17 +32,17 @@ export default function LoginForm ( {manager} ) {
             localStorage.setItem("token", loginResponse.token);
             localStorage.setItem("role", loginResponse.role);
             setLoginStatus("");
-
             navigate('/employees');
         } catch (err) {
             setLoginStatus("Bad Credential");
             console.log("error login : ", err);
         }
     }
+    // loginStatus === '#'? navigate('/employees') : '';
 
     return(
         <div className="login-form">
-            <form action="" id="login" ref={formRef} onSubmit={handleLogin}>
+            <form action="" id="login" ref={formRef}>
                 <table>
                     <tbody>
                         <tr>
@@ -74,7 +74,7 @@ export default function LoginForm ( {manager} ) {
                         </tr>
                         <tr>
                             <td>
-                                <button type="submit">Login</button>
+                                <button type="submit" onClick={(e) => handleLogin(e)}>Login</button>
                             </td>
                             <td>
                                 {

@@ -12,8 +12,6 @@ export default function Employees() {
     async function loadEmployees() {
         try {
             const response = await ApiServices.getAllEmployees(token);
-            console.log(response);
-            // localStorage.setItem("employees", JSON.stringify(fetchEmployees));
             setEmployees(response);
         } catch (error) {
             console.error('Error fetching employees:', error);
