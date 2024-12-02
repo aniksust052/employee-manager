@@ -22,18 +22,21 @@ export default function LoginForm ( {managerLogin, manager, setManager} ) {
         }
         try{
             const loginResponse = await ApiServices.login(newData);
-
             if (!loginResponse.token) {
+                
                 setLoginStatus(loginResponse.message || "Invalid credentials.");
+                console.log("success");
                 return;
             }
            
             localStorage.setItem("token", loginResponse.token);
             localStorage.setItem("role", loginResponse.role);
+            navigate('/employees');
             setLoginStatus("Login Successfull");
             setManager(true);
             formRef.current.reset();
-            navigate('/employees');
+            return;
+            
         } catch (err) {
             setLoginStatus("Bad Credential");
         }
