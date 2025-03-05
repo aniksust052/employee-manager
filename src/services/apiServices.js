@@ -2,7 +2,7 @@ import axios from "axios";
 
 class ApiServices {
     // static deployedUrl = 'https://employee-spring-boot-production.up.railway.app';
-    static deployedUrl = 'https://lobiq.xyz';
+    static deployedUrl = 'http://lobiq.xyz';
     static localUrl = 'http://localhost:8080';
 
     static async signUP (user) {
